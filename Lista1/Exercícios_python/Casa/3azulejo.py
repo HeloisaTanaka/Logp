@@ -1,0 +1,6 @@
+ap = float(input("Digite a altura da parede: "))
+lp = float(input("Digite a largura da parede: "))
+aa = float(input("Digite a altura do azulejo: "))
+la = float(input("Digite a largura do azulejo: "))
+azulejos = (ap*lp)/(aa*la)
+print("Serão necessários", round(azulejos, 2), "azulejos para azulejar a parede.")
