@@ -31,4 +31,4 @@ if a!=b and b!=c and c!=a:
             print("Menor número: ", a)
             print("Número do meio: ", b)
 else:
-    print("Não digite números repetidos")
+    print("Há números repetidos")

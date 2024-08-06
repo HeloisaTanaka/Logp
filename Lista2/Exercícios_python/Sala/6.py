@@ -1,4 +1,3 @@
-
 a = float(input("Digite o valor de a: "))
 b = float(input("Digite o valor de b: "))
 c = float(input("Digite o valor de c: "))
@@ -6,7 +5,7 @@ c = float(input("Digite o valor de c: "))
 if a!=0:
     d = (b**2)-(4*a*c)
     if d<0:
-        print("A equação nõ tem solução")
+        print("A equação não tem solução")
     elif d==0:
         x1 = -b/(2*a)
         x2 = x1

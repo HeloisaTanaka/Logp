@@ -4,6 +4,5 @@ if a==0:
 elif a>0:
     print("O módulo de", a, "é", a)
 else:
-    a1 = a*(-1)
-    print("O módulo de", a, "é", a1)
+    print("O módulo de", a, "é", a*(-1))
 
