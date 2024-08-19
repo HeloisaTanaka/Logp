@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main()
 {
-    char s='+';
+    char s;
     float a, b;
     while (s!='s' || s!='S'){ 
         printf("Digite o símbolo da operação, caso queira sair do programa, digite 'S':");
