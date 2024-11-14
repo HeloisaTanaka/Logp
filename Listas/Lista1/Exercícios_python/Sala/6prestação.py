@@ -1,0 +1,5 @@
+pv = float(input("Digite o valor da prestação: "))
+taxa = float(input("Digite o valor da taxa de juros: "))
+tempo = float(input("Digite o tempo em atraso: "))
+pa = pv+(pv*tempo*(taxa/100))
+print("O valor da prestação em atraso é R$", round(pa, 2))
