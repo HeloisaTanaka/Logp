@@ -1,0 +1,5 @@
+tupla = (10, 20, 30, 40, 50)
+print (tupla[2])
+print (20 in tupla)
+tupla = list(tupla)
+print (tupla)
