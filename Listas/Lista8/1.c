@@ -4,12 +4,12 @@
 
 int main() {
 
-    int index, categoria, action, search;
+    int index, categoria, action;
     bool loop = true, found;
+    char search;
 
     struct infos {
-        char name[40], address[40], email[40];
-        int phone[1], search;
+        char name[40], address[40], email[40], phone[10];
     }; struct infos person[5];
 
     printf("Cadastro\n");
@@ -24,7 +24,7 @@ int main() {
         fflush(stdin); fgets(person[i].email, 40, stdin);
 
         printf("Informe o telefone do cliente %d:\n", i+1);
-        fflush(stdin); scanf("%d", &person[i].phone[0]);    
+        fflush(stdin); fgets(person[i].phone, 10, stdin);
     }
 
 
@@ -35,17 +35,17 @@ int main() {
             break;
         }
         else if(action == 1){
-            printf("Pesquise pela idade do cliente, digite -1 para parar:\n");
+            printf("Pesquise pelo nome do cliente, digite -1 para parar:\n");
             while (loop) {
-                scanf("%d", &search);
-                if (search == -1){
+                scanf("%s", &search);
+                if (search == "-1"){
                     loop = false;
                 }
                 else {
                     bool found = false;
                     for (int i = 0; i<5; i++) {
-                        if (person[i].age[0] == search) {
-                            printf("%s: %d\n", person[i].name, person[i].age[0]);
+                        if (person[i].name == search) {
+                            printf("%s: %s %s %s\n", person[i].name, person[i].phone, person[i].address, person[i].email );
                             found = true;
                         }
                         else {continue;}
@@ -55,7 +55,7 @@ int main() {
                         continue;
                     }
                     else {
-                        printf("Não há clientes com esta idade\n");
+                        printf("Não há clientes com este nome\n");
                     }
                 }        
             }
@@ -68,7 +68,7 @@ int main() {
 
             while (loop) {
                 for (int i=0; i<5; i++) {
-                    printf("%d | %s | Endereço: %s | Idade: %d\n | Telefone: %d\n", i, person[i].name, person[i].address, person[i].age[0], person[i].phone[0]);
+                    printf("%d | %s | Endereço: %s | email: %s\n | Telefone: %s\n", i, person[i].name, person[i].address, person[i].email, person[i].phone);
                 }
                 printf("Digite o número correspondete ao cliente que se deseja fazer a alteração ou aperte 0 para sair:\n");
                 scanf("%d", &index);
@@ -76,7 +76,7 @@ int main() {
                     loop = false;
                 }
                 else {
-                    printf("Digite '1' para nome, '2' para endereço, '3' para idade e '4' para telefone:\n");
+                    printf("Digite '1' para nome, '2' para endereço, '3' para email e '4' para telefone:\n");
                     scanf("%d", &categoria);
                     printf("Digite as alterações:\n");
                     if (categoria == 1) {
@@ -86,10 +86,10 @@ int main() {
                         fflush(stdin); fgets(person[index].address, 40, stdin);
                     }
                     else if (categoria == 3) {
-                        scanf("%d", person[index].age);
+                        scanf("%s", person[index].email);
                     }
                     else if (categoria == 4) {
-                        scanf("%d", person[index].phone);
+                        scanf("%s", person[index].phone);
                     }
                 }
             }
@@ -97,9 +97,44 @@ int main() {
 
     }
     
+    else if (action == 4) {
+        loop = true;
+        while (loop) {
+            for (int i=0; i<5; i++) {
+                printf("%d | %s | Endereço: %s | email: %s\n | Telefone: %s\n", i, person[i].name, person[i].address, person[i].email, person[i].phone[0]);
+            }
+            printf("Digite o número correspondete ao cliente que se deseja fazer a alteração ou aperte 0 para sair:\n");
+            scanf("%d", &index);
+            if (index == 0) {
+                loop = false;
+            }
+            else {
+                printf("Digite '1' para apagar o nome, '2' para o endereço, '3' para o email e '4' para o telefone:\n");
+                scanf("%d", &categoria);
+                printf("Digite as alterações:\n");
+                if (categoria == 1) {
+                    person[index].name = '';
+                }
+                else if (categoria == 2) {
+                    person[index].address = '';
+                }
+                else if (categoria == 3) {
+                    person[index].email = '';
+                }
+                else if (categoria == 4) {
+                    person[index].phone = '';
+                }
+            }
+        }
+    }
+
+
+    else {
+        printf("Comando inválido\n")
+        continue;
+    }
+
     return 0;
 }
 
-/*Algo não está permitindo que eu digite os nomes (com exceção da primeira pessoa) 
-e nem que faça alterações nos mesmos, procurei o erro mas não encotrei
-o resto do código está funcionando*/
+/*Ainda está sendo feito*/
