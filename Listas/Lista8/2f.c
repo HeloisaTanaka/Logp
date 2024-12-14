@@ -25,7 +25,7 @@ int main() {
     scanf("%d", &n);
     
     printf("Sequência de Fibonacci até o %dº termo:\n", n);
-    fibonacci(n);  // Chama a função fibonacci para imprimir os termos
+    fibonacci(n); 
     
     printf("\n");
     return 0;
