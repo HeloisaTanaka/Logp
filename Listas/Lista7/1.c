@@ -1,105 +1,104 @@
-#include<stdio.h>
-#include<conio.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
-int main() {
+typedef struct {
+    char n[50];
+    char e[100];
+    int i;
+    char t[10];
+} C;
 
-    int index, categoria, action, search;
-    bool loop = true, found;
-
-    struct infos {
-        char name[40], address[40];
-        int age[1], phone[1], search;
-    }; struct infos person[5];
-
-    printf("Cadastro\n");
-    for (int i=0; i<5; i++) {
-        printf("Informe o nome do cliente %d:\n", i+1);
-        fflush(stdin); fgets(person[i].name, 40, stdin);
-
-        printf("Informe o endereço do cliente %d:\n", i+1);
-        fflush(stdin); fgets(person[i].address, 40, stdin);
-
-        printf("Informe a idade do cliente %d:\n", i+1);
-        fflush(stdin); scanf("%d", &person[i].age[0]);
-
-        printf("Informe o telefone do cliente %d:\n", i+1);
-        fflush(stdin); scanf("%d", &person[i].phone[0]);    
+void a(C c[]) {
+    for (int j = 0; j < 5; j++) {
+        printf("Cadastro %d:\n", j + 1);
+        printf("Nome: ");
+        scanf(" %s", c[j].n);
+        printf("Endereco: ");
+        scanf(" %s", c[j].e);
+        printf("Idade: ");
+        scanf("%d", &c[j].i);
+        printf("Telefone: ");
+        scanf(" %s", c[j].t);
     }
-
-
-    while(true){
-        printf("Insira 1 para pesquisar pela idade, 2 para alterar informações ou 3 para sair:\n");
-        scanf("%d", &action);
-        if (action == 3) {
-            break;
-        }
-        else if(action == 1){
-            printf("Pesquise pela idade do cliente, digite -1 para parar:\n");
-            while (loop) {
-                scanf("%d", &search);
-                if (search == -1){
-                    loop = false;
-                }
-                else {
-                    bool found = false;
-                    for (int i = 0; i<5; i++) {
-                        if (person[i].age[0] == search) {
-                            printf("%s: %d\n", person[i].name, person[i].age[0]);
-                            found = true;
-                        }
-                        else {continue;}
-                    }
-
-                    if (found) {
-                        continue;
-                    }
-                    else {
-                        printf("Não há clientes com esta idade\n");
-                    }
-                }        
-            }
-        }
-
-        else if (action == 2) {
-            loop = true;
-            printf("Alteração de registros:\n");
-
-
-            while (loop) {
-                for (int i=0; i<5; i++) {
-                    printf("%d | %s | Endereço: %s | Idade: %d\n | Telefone: %d\n", i, person[i].name, person[i].address, person[i].age[0], person[i].phone[0]);
-                }
-                printf("Digite o número correspondete ao cliente que se deseja fazer a alteração ou aperte 0 para sair:\n");
-                scanf("%d", &index);
-                if (index == 0) {
-                    loop = false;
-                }
-                else {
-                    printf("Digite '1' para nome, '2' para endereço, '3' para idade e '4' para telefone:\n");
-                    scanf("%d", &categoria);
-                    printf("Digite as alterações:\n");
-                    if (categoria == 1) {
-                        fflush(stdin); fgets(person[index].name, 40, stdin);
-                    }
-                    else if (categoria == 2) {
-                        fflush(stdin); fgets(person[index].address, 40, stdin);
-                    }
-                    else if (categoria == 3) {
-                        scanf("%d", person[index].age);
-                    }
-                    else if (categoria == 4) {
-                        scanf("%d", person[index].phone);
-                    }
-                }
-            }
-        }
-
-    }
-    
-    return 0;
 }
 
-/*Algo não está permitindo que eu digite os nomes (com exceção da primeira pessoa) 
-e nem que faça alterações nos mesmos, procurei o erro mas não encotrei
-o resto do código está funcionando*/
+void b(C c[]) {
+    int x;
+    printf("Digite a idade para pesquisa: ");
+    scanf("%d", &x);
+    for (int j = 0; j < 5; j++) {
+        if (c[j].i == x) {
+            printf("Nome: %s, Endereco: %s, Telefone: %s\n", c[j].n, c[j].e, c[j].t);
+        }
+    }
+}
+
+void c(C c[]) {
+    C tmp;
+    for (int j = 0; j < 5 - 1; j++) {
+        for (int k = j + 1; k < 5; k++) {
+            if (strcmp(c[j].n, c[k].n) > 0) {
+                tmp = c[j];
+                c[j] = c[k];
+                c[k] = tmp;
+            }
+        }
+    }
+    printf("Agenda ordenada por nome:\n");
+    for (int j = 0; j < 5; j++) {
+        printf("Nome: %s, Endereco: %s, Idade: %d, Telefone: %s\n", c[j].n, c[j].e, c[j].i, c[j].t);
+    }
+}
+
+void d(C c[]) {
+    char n[50];
+    printf("Digite o nome da pessoa para alterar o registro: ");
+    scanf(" %s", n);
+    for (int j = 0; j < 5; j++) {
+        if (strcmp(c[j].n, n) == 0) {
+            printf("Novo Nome: ");
+            scanf(" %s", c[j].n);
+            printf("Novo Endereco: ");
+            scanf(" %s", c[j].e);
+            printf("Nova Idade: ");
+            scanf("%d", &c[j].i);
+            printf("Novo Telefone: ");
+            scanf(" %s", c[j].t);
+            return;
+        }
+    }
+    printf("Erro: Registro nao encontrado.\n");
+}
+
+int main() {
+    C c[5];
+    int op;
+
+    do {
+        printf("Menu:\n");
+        printf("1- Adicionar Contato\n");
+        printf("2- Buscar por Idade\n");
+        printf("3- Ordenar por Nome\n");
+        printf("4- Alterar Registro\n");
+        printf("5- Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &op);
+
+        if (op == 1) {
+            a(c);
+        } else if (op == 2) {
+            b(c);
+        } else if (op == 3) {
+            c(c);
+        } else if (op == 4) {
+            d(c);
+        } else if (op == 5) {
+            printf("Saindo...\n");
+        } else {
+            printf("Opcao invalida.\n");
+        }
+
+    } while (op != 5);
+
+    return 0;
+}
